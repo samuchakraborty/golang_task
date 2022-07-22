@@ -3,30 +3,42 @@ package main
 import (
 	"fmt"
 	"h/algorithm"
-	random "h/random_number"
 	"h/utils"
+	"math/rand"
+	"strconv"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html"
 )
-
-var start time.Time
-
-func init() {
-
-	start = time.Now()
-}
 
 func main() {
 
-	app := fiber.New()
+	//app := fiber.New()
+	//app.Static("", "./index.html")
+	engine := html.New("./views", ".html")
 
-	fmt.Printf("random number %v\n", random.RandomNumber())
+	app := fiber.New(fiber.Config{Views: engine})
 
-	result, executionTime := algorithm.BubbleSort(random.RandomNumber())
-	insertionSort, executionTime2 := algorithm.InsertionSort(random.RandomNumber())
+	app.Static("./style", "./styles/style")
+	app.Get("/index", func(c *fiber.Ctx) error {
 
-	app.Get("", func(c *fiber.Ctx) error {
+		input := (c.Query("number"))
+		number, err := strconv.Atoi(input)
+		if err != nil {
+			panic(err)
+		}
+		rand.Seed(time.Now().UnixNano())
+
+		array := []int{}
+		for i := 0; i < number; i++ {
+			round := rand.Intn(100)
+			array = append(array, round)
+
+		}
+
+		result, executionTime := algorithm.BubbleSort(array)
+		insertionSort, executionTime2 := algorithm.InsertionSort(array)
 
 		insertionSortData := utils.InsertionSort{
 			Data:          insertionSort,
@@ -37,21 +49,32 @@ func main() {
 			ExecutionTime: executionTime,
 		}
 
-		response := &utils.Data{
+		util := &utils.Data{
 			Message:       "success",
 			StatusCode:    200,
 			BubbleSort:    bubbleSortData,
 			InsertionSort: insertionSortData,
 		}
-		fmt.Println(response)
 
-		return c.JSON(response)
+		// return c.JSON(response)
+
+		return c.Render("index", fiber.Map{
+
+			"msg":                 util.Message,
+			"bubble_sort_time":    util.BubbleSort.ExecutionTime,
+			"insertion_sort_time": util.InsertionSort.ExecutionTime,
+			"data":                util.BubbleSort.Data,
+		})
 
 	})
-	app.Get("/index", func(c *fiber.Ctx) error {
 
-		return c.Response().SendFile("./index.html")
-	})
+	// app.Get("/", func(c *fiber.Ctx) error {
+
+	// 	return c.Render("index", fiber.Map{
+
+	// 		"msg": "samu",
+	// 	})
+	// })
 
 	app.Post("", func(c *fiber.Ctx) error {
 
@@ -77,7 +100,7 @@ func main() {
 	})
 
 	app.Listen(":3000")
-	fmt.Printf("%v \n", result)
-	fmt.Println("main excution end at ", time.Since(start))
+	// fmt.Printf("%v \n", result)
+	// fmt.Println("main excution end at ", time.Since(start))
 
 }

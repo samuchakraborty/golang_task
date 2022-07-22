@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-func RandomNumber() []int {
+func RandomNumber(number int) []int {
 
 	rand.Seed(time.Now().UnixNano())
 
 	array := []int{}
-	for i := 0; i < 20; i++ {
+	for i := 0; i < number; i++ {
 		round := rand.Intn(100)
 		array = append(array, round)
 
