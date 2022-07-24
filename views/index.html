@@ -8,10 +8,32 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <p class="box">{{.msg}}</p>
+
+
+    <form action="" method="post">
+        <label for="number">Enter your number :</label>
+        <input type="number" id="number" name="number">
+        <br>
+        <br>
+    <button>Run</button>
+        
+    </form>
+        <br>
+    <!-- {{if .data }}{{.data}} {{end}} -->
+
+    {{if .msg }}{{.msg}} {{end}}
+
+
+    {{if .bubble_sort_time }} <p >Bubble sort execution time {{.bubble_sort_time}}</p> {{end}}
+
+    <!-- <p >{{.msg}}</p> -->
     <!-- <br> -->
-    <p class="box">Bubble sort execution time {{.bubble_sort_time}}</p>
-    <p class="box">{{.data}}</p>
-    <p class="box">Insertion sort  execution time {{.insertion_sort_time}}</p>
+    {{if .data }}    <p >{{.data}}</p> {{end}}
+
+    {{if .insertion_sort_time }}    <p >Insertion sort  execution time {{.insertion_sort_time}}</p> {{end}}
+
+
+    <!-- <p >{{.data}}</p> -->
+    <!-- <p >Insertion sort  execution time {{.insertion_sort_time}}</p> -->
 </body>
 </html>
