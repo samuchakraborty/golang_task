@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"h/algorithm"
 	"h/utils"
 	"math/rand"
@@ -17,10 +18,15 @@ func main() {
 	app := fiber.New(fiber.Config{Views: engine})
 
 
-	arr := []int{90,40,1,5,6,7}
+	arr := []int{15,5,24,8,1,3,6,90}
 
-	algorithm.MergeSort(arr, arr[0], arr[len(arr)-1])
+	startTime := time.Now()
+	sort := algorithm.MergeSort(arr)
+	endTime := time.Since(startTime)
+
+	// algorithm.Mergesort(arr, 0, len(arr)-1)
 	
+	fmt.Printf("%v, %v", sort, int64((endTime * time.Millisecond)/ time.Millisecond))
 	app.Static("./style", "./styles/style")
 	app.Post("", func(c *fiber.Ctx) error {
 
