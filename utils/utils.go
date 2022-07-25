@@ -7,6 +7,8 @@ type Data struct {
 	StatusCode    int           `json:"statusCode"`
 	BubbleSort    BubbleSort    `json:"bubble_sort_data"`
 	InsertionSort InsertionSort `json:"insertion_sort_data"`
+	MargeSortTime time.Duration `json:"merge_sort_executionTime"`
+
 }
 
 type BubbleSort struct {

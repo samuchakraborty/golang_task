@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"h/algorithm"
 	"h/utils"
 	"math/rand"
 	"strconv"
 	"time"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html"
 )
@@ -17,16 +15,9 @@ func main() {
 
 	app := fiber.New(fiber.Config{Views: engine})
 
+	//arr := []int{15, 5, 24, 8, 1, 3, 6, 90}
 
-	arr := []int{15,5,24,8,1,3,6,90}
-
-	startTime := time.Now()
-	sort := algorithm.MergeSort(arr)
-	endTime := time.Since(startTime)
-
-	// algorithm.Mergesort(arr, 0, len(arr)-1)
-	
-	fmt.Printf("%v, %v", sort, int64((endTime * time.Millisecond)/ time.Millisecond))
+	//fmt.Printf("%v, %v", mergeSort, int64((endTime*time.Millisecond)/time.Millisecond))
 	app.Static("./style", "./styles/style")
 	app.Post("", func(c *fiber.Ctx) error {
 
@@ -55,6 +46,10 @@ func main() {
 				array = append(array, round)
 
 			}
+			startTime := time.Now()
+
+			mergeSort := algorithm.MergeSort(array)
+			endTime := time.Since(startTime)
 
 			result, executionTime := algorithm.BubbleSort(array)
 			insertionSort, executionTime2 := algorithm.InsertionSort(array)
@@ -73,16 +68,17 @@ func main() {
 				StatusCode:    200,
 				BubbleSort:    bubbleSortData,
 				InsertionSort: insertionSortData,
+				MargeSortTime:  endTime * time.Millisecond,
 			}
 
 			// return c.JSON(response)
 
 			return c.Render("index", fiber.Map{
-
 				"msg":                 util.Message,
 				"bubble_sort_time":    int64(util.BubbleSort.ExecutionTime / time.Millisecond),
 				"insertion_sort_time": int64(util.InsertionSort.ExecutionTime / time.Millisecond),
-				"data":                util.BubbleSort.Data,
+				"data":                mergeSort,
+				"merge_sort_time":     int64(util.MargeSortTime / time.Millisecond),
 			})
 		} else {
 			return c.Render("index", fiber.Map{})
