@@ -18,7 +18,8 @@ func main() {
 	//arr := []int{15, 5, 24, 8, 1, 3, 6, 90}
 
 	//fmt.Printf("%v, %v", mergeSort, int64((endTime*time.Millisecond)/time.Millisecond))
-	app.Static("./style", "./styles/style")
+	app.Static("/dist", "./dist/")
+	
 	app.Post("", func(c *fiber.Ctx) error {
 
 		payload := struct {
@@ -60,7 +61,7 @@ func main() {
 			}
 			bubbleSortData := utils.BubbleSort{
 				Data:          result,
-				ExecutionTime: executionTime * time.Millisecond,
+				ExecutionTime: executionTime,
 			}
 
 			util := &utils.Data{
@@ -75,7 +76,8 @@ func main() {
 
 			return c.Render("index", fiber.Map{
 				"msg":                 util.Message,
-				"bubble_sort_time":    int64(util.BubbleSort.ExecutionTime / time.Millisecond),
+				"bubble_sort_time": 
+					util.BubbleSort.ExecutionTime ,
 				"insertion_sort_time": int64(util.InsertionSort.ExecutionTime / time.Millisecond),
 				"data":                mergeSort,
 				"merge_sort_time":     int64(util.MargeSortTime / time.Millisecond),
