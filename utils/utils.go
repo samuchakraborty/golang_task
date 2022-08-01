@@ -8,6 +8,8 @@ type Data struct {
 	BubbleSort    BubbleSort    `json:"bubble_sort_data"`
 	InsertionSort InsertionSort `json:"insertion_sort_data"`
 	MargeSortTime time.Duration `json:"merge_sort_executionTime"`
+	MargeSortData []int `json:"merge_sort_executionData"`
+
 
 }
 

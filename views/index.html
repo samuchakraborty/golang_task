@@ -10,13 +10,13 @@
 <body>
 
 
-   <div class="p-[50px] bg-indigo-500 m-[40px]">
+   <div class="p-[50px] bg-indigo-500 m-[40px] w-2/4">
     <form action="" method="post">
         <label  for="number">Enter your number :</label>
         <input type="number" id="number" name="number">
         <br>
         <br>
-    <button class="bg-slate-400 p-2 ra">Run</button>
+    <button class="bg-slate-400 p-10 rounded-full">Run</button>
         
     </form>
         <br>
@@ -25,7 +25,7 @@
     <!-- {{if .data2 }}{{.data2}} {{end}} -->
 
     {{if .msg }}
-    <div class="p-[50px] m-10 bg-indigo-500">
+    <div class="p-[50px] m-10 bg-indigo-500 w-1/2">
     {{if .bubble_sort_time }} <p >Bubble sort execution time {{.bubble_sort_time}}</p> {{end}}
 
     <!-- <p >{{.msg}}</p> -->

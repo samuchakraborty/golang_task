@@ -6,15 +6,16 @@ FROM golang:1.18-alpine
 # create a working directory inside the image
 WORKDIR /app
 
+COPY . ./ 
 # copy Go modules and dependencies to image
 COPY go.mod ./
 # download Go modules and dependencies
-RUN go mod download
+# RUN go mod download
 
 RUN go mod tidy
 
 # copy directory files i.e all files ending with .go
-COPY *.go ./
+
 
 
 # compile application
@@ -25,4 +26,7 @@ RUN go build -o /h
 EXPOSE 3000
 
 # command to be used to execute when the image is used to start a container
+RUN chmod +x /h
+
+
 CMD [ "/h" ]
