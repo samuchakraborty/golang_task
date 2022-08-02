@@ -1,5 +1,19 @@
 # syntax=docker/dockerfile:1
 
+# Build Svelte files
+
+# FROM node:10-alpine as client_builder
+
+# COPY /svelte /node/app/client/
+
+# WORKDIR /node/app/client
+
+# RUN yarn && yarn build
+
+# Build Go Server
+
+
+
 # specify the base image to  be used for the application, alpine or ubuntu
 FROM golang:1.18-alpine
 
@@ -8,6 +22,7 @@ WORKDIR /app
 
 COPY . ./ 
 # copy Go modules and dependencies to image
+
 COPY go.mod ./
 # download Go modules and dependencies
 # RUN go mod download

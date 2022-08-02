@@ -9,7 +9,6 @@ import (
 	// "strconv"
 	"fmt"
 	"time"
-
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	// "github.com/gofiber/template/html"
@@ -39,7 +38,7 @@ func main() {
 	app.Post("/data", func(c *fiber.Ctx) error {
 
 		payload := struct {
-			Number string `json:"number,omitempty"`
+			Number string `json:"number"`
 		}{}
 		fmt.Println(payload)
 
@@ -64,6 +63,7 @@ func main() {
 				array = append(array, round)
 
 			}
+			fmt.Println(array)
 			startTime := time.Now()
 			mergeSort := algorithm.MergeSort(array)
 			endTime := time.Since(startTime)
@@ -87,8 +87,9 @@ func main() {
 				InsertionSort: insertionSortData,
 				MargeSortTime: endTime,
 				MargeSortData: mergeSort,
+				UnSortData: array,
 			}
-			fmt.Println(util)
+			fmt.Println(util.UnSortData)
 
 			return c.JSON(util)
 
